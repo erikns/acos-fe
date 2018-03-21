@@ -11,7 +11,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">TODO-app</h1>
         </header>
-        <main class="app-main">
+        <main className="app-main">
           <Switch>
             <Route exact path='/' component={ItemList}/>
           </Switch>

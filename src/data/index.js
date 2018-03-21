@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const mockTasks = [
     {
         id: 1,
@@ -14,7 +16,5 @@ const mockTasks = [
 ]
 
 export const getTasks = () => {
-    return new Promise((resolve, reject) => {
-        resolve(mockTasks)
-    })
+    return axios.get('http://localhost:5000/api/tasks')
 }
