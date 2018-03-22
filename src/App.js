@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import './App.css';
 
-import ItemList from './ItemList'
+import Main from './Main'
 import NewTodo from './NewTodo'
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
         </header>
         <main className="app-main">
           <Switch>
-            <Route exact path='/' component={ItemList}/>
+            <Route exact path='/' component={Main}/>
           </Switch>
         </main>
       </div>

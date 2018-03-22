@@ -5,7 +5,7 @@ import { getTasks, getUsers } from './data'
 const Item = (props) => {
     const classes = "non-select " + (props.selected ? "selected" : "")
     return (
-        <tr className={classes} onClick={() => props.onSelect(props.idx)} style={{cursor: 'pointer'}}>
+        <tr className={classes} onClick={() => props.onSelect(props.idx)} style={{ cursor: 'pointer' }}>
             <td>{props.selected ? "*" : ""}</td>
             <td>{props.user.fullName}</td>
             <td>{props.user.email}</td>
@@ -13,7 +13,7 @@ const Item = (props) => {
     )
 }
 
-class ItemList extends Component {
+class UserList extends Component {
     constructor(props) {
         super(props)
         this.state = { error: false, tasks: [], users: [], selectedIdx: -1 }
@@ -33,7 +33,7 @@ class ItemList extends Component {
     }
 
     onUserSelect(idx) {
-        this.setState({selectedIdx: idx})
+        this.setState({ selectedIdx: idx })
     }
 
     render() {
@@ -42,11 +42,9 @@ class ItemList extends Component {
                 <Item key={i} idx={i} user={u} onSelect={this.onUserSelect}
                     selected={this.state.selectedIdx == i} />
             )
-        
+
         return (
-            <div>
-                <h3>Brukere</h3>
-                <table class="list">
+            <table class="list">
                 <thead>
                     <td></td>
                     <td>Navn</td>
@@ -55,10 +53,18 @@ class ItemList extends Component {
                 <tbody>
                     {renderUsers()}
                 </tbody>
-                </table>
-            </div>
+            </table>
         )
     }
 }
 
-export default ItemList
+const Main = (props) => {
+    return (
+        <div>
+            <h3>Brukere</h3>
+            <UserList />
+        </div>
+    )
+}
+
+export default Main
