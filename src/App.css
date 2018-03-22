@@ -13,10 +13,33 @@
   font-size: 1.25em;
 }
 
+.inner-header {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
 .app-main {
   padding: 20px;
+  max-width: 768px;
+  margin: 0 auto;
 }
 
 h1 {
   font-size: 1.1em;
+}
+
+.non-select {
+  user-select: none;
+}
+
+.list thead {
+  font-weight: bold;
+}
+
+.list tr:hover {
+  background-color: #ccc;
+}
+
+.selected {
+  background-color: #9d9;
 }

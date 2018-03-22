@@ -10,7 +10,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">TODO-app</h1>
+          <div className="inner-header">
+            <h1 className="App-title">TODO-app</h1>
+          </div>
         </header>
         <main className="app-main">
           <Switch>

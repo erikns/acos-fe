@@ -2,12 +2,24 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { getTasks, getUsers } from './data'
 
+const Item = (props) => {
+    const classes = "non-select " + (props.selected ? "selected" : "")
+    return (
+        <tr className={classes} onClick={() => props.onSelect(props.idx)} style={{cursor: 'pointer'}}>
+            <td>{props.selected ? "*" : ""}</td>
+            <td>{props.user.fullName}</td>
+            <td>{props.user.email}</td>
+        </tr>
+    )
+}
+
 class ItemList extends Component {
     constructor(props) {
         super(props)
-        this.state = { error: false, tasks: [], users: [] }
+        this.state = { error: false, tasks: [], users: [], selectedIdx: -1 }
 
         this.update = this.update.bind(this)
+        this.onUserSelect = this.onUserSelect.bind(this)
     }
 
     componentWillMount() {
@@ -15,40 +27,35 @@ class ItemList extends Component {
     }
 
     update() {
-        getTasks().then(response => {
-            console.log(response)
-            this.setState({ error: false, tasks: response.data })
-        }).catch(() => {
-            this.setState({ error: true })
-        })
-
         getUsers().then(response => {
             this.setState({ users: response.data })
         })
     }
 
+    onUserSelect(idx) {
+        this.setState({selectedIdx: idx})
+    }
+
     render() {
-        const renderTasks = () => this.state.tasks.map(t => <li>{t.title} ({t.userEmail})</li>)
-        const renderUsers = () => this.state.users.map(u => <li>{u.fullName}</li>)
-
-        const showError = () => {
-            if (this.state.error)
-                return <span>Error</span>
-        }
-
+        const renderUsers = () =>
+            this.state.users.map((u, i) =>
+                <Item key={i} idx={i} user={u} onSelect={this.onUserSelect}
+                    selected={this.state.selectedIdx == i} />
+            )
+        
         return (
             <div>
-                <h1>TODO items</h1>
-                {showError()}
-                <ul>
-                    {renderTasks()}
-                </ul>
-                <Link to="/newtodo">New TODO-item</Link>
-
-                <h1>Users</h1>
-                <ul>
+                <h3>Brukere</h3>
+                <table class="list">
+                <thead>
+                    <td></td>
+                    <td>Navn</td>
+                    <td>Epost</td>
+                </thead>
+                <tbody>
                     {renderUsers()}
-                </ul>
+                </tbody>
+                </table>
             </div>
         )
     }
