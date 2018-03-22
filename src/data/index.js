@@ -18,3 +18,7 @@ const mockTasks = [
 export const getTasks = () => {
     return axios.get('http://localhost:5000/api/tasks')
 }
+
+export const getUsers = () => {
+    return axios.get('http://localhost:5000/api/users')
+}
