@@ -34,6 +34,31 @@ const TaskList = (props) => {
 }
 
 class UserList extends Component {
+    render() {
+        const renderUsers = () =>
+            this.props.users.map((u, i) =>
+                <Item key={i} idx={i} user={u} onSelect={this.props.onUserSelect}
+                    selected={this.props.selectedIdx == i} />
+            )
+
+        return (
+            <div>
+                <table class="list">
+                    <thead>
+                        <td></td>
+                        <td>Navn</td>
+                        <td>Epost</td>
+                    </thead>
+                    <tbody>
+                        {renderUsers()}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+}
+
+class Main extends Component {
     constructor(props) {
         super(props)
         this.state = { error: false, tasks: [], users: [], selectedIdx: -1 }
@@ -60,39 +85,16 @@ class UserList extends Component {
     }
 
     render() {
-        const renderUsers = () =>
-            this.state.users.map((u, i) =>
-                <Item key={i} idx={i} user={u} onSelect={this.onUserSelect}
-                    selected={this.state.selectedIdx == i} />
-            )
-
         return (
             <div>
-                <table class="list">
-                    <thead>
-                        <td></td>
-                        <td>Navn</td>
-                        <td>Epost</td>
-                    </thead>
-                    <tbody>
-                        {renderUsers()}
-                    </tbody>
-                </table>
+                <h3>Brukere</h3>
+                <UserList users={this.state.users} onUserSelect={this.onUserSelect} />
                 <br />
                 <br />
                 <TaskList tasks={this.state.tasks} />
             </div>
         )
     }
-}
-
-const Main = (props) => {
-    return (
-        <div>
-            <h3>Brukere</h3>
-            <UserList />
-        </div>
-    )
 }
 
 export default Main
