@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { getTasks, getUsers } from './data'
+import { getUsers, getTasksForUser } from './data'
 
 const Item = (props) => {
     const classes = "non-select " + (props.selected ? "selected" : "")
@@ -10,6 +10,26 @@ const Item = (props) => {
             <td>{props.user.fullName}</td>
             <td>{props.user.email}</td>
         </tr>
+    )
+}
+
+const TaskList = (props) => {
+    const renderTasks = () =>
+        props.tasks.map(t =>
+            <tr><td>{t.title}</td><td>{t.description}</td><td>{t.typeName}</td></tr>
+        )
+
+    return (
+        <table class="list">
+            <thead>
+                <td>Title</td>
+                <td>Description</td>
+                <td>Type</td>
+            </thead>
+            <tbody>
+                {renderTasks()}
+            </tbody>
+        </table>
     )
 }
 
@@ -34,6 +54,9 @@ class UserList extends Component {
 
     onUserSelect(idx) {
         this.setState({ selectedIdx: idx })
+        getTasksForUser(this.state.users[idx].id).then(r => {
+            this.setState({ tasks: r.data })
+        })
     }
 
     render() {
@@ -44,16 +67,21 @@ class UserList extends Component {
             )
 
         return (
-            <table class="list">
-                <thead>
-                    <td></td>
-                    <td>Navn</td>
-                    <td>Epost</td>
-                </thead>
-                <tbody>
-                    {renderUsers()}
-                </tbody>
-            </table>
+            <div>
+                <table class="list">
+                    <thead>
+                        <td></td>
+                        <td>Navn</td>
+                        <td>Epost</td>
+                    </thead>
+                    <tbody>
+                        {renderUsers()}
+                    </tbody>
+                </table>
+                <br />
+                <br />
+                <TaskList tasks={this.state.tasks} />
+            </div>
         )
     }
 }
