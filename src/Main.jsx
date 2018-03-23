@@ -22,8 +22,8 @@ const TaskList = (props) => {
     return (
         <table class="list">
             <thead>
-                <td>Title</td>
-                <td>Description</td>
+                <td>Tittel</td>
+                <td>Beskrivelse</td>
                 <td>Type</td>
             </thead>
             <tbody>
@@ -88,7 +88,8 @@ class Main extends Component {
         return (
             <div>
                 <h3>Brukere</h3>
-                <UserList users={this.state.users} onUserSelect={this.onUserSelect} />
+                <UserList users={this.state.users} onUserSelect={this.onUserSelect}
+                    selectedIdx={this.state.selectedIdx} />
                 <br />
                 <br />
                 <TaskList tasks={this.state.tasks} />
